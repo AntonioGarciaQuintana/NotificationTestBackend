@@ -1,2 +1,91 @@
-# NotificationTestBackend
-Notification management system built with Spring Boot, responsible for sending messages to users according to their subscribed categories and supported notification types. It leverages Factory and Strategy patterns for channel resolution and includes unit tests with JaCoCo to measure and enforce test coverage.
+# Notification Management System
+
+Spring Boot application designed to manage the delivery of notifications to users based on different categories and notification types.  
+The system applies design patterns such as **Factory** and **Strategy**, and includes **unit tests with JaCoCo coverage enforcement** to ensure code quality.
+
+---
+
+## 🛠️ Technology Stack & Build Configuration
+
+This project is built using **Spring Boot 3.3.5** and **Java 21**, following modern backend development practices.
+
+### 🔹 Core Technologies
+
+- **Java 21**  
+  The application runs on Java 21, taking advantage of the latest language and JVM improvements.
+
+- **Spring Boot 3.3.5**  
+  Provides auto-configuration, dependency management, and production-ready features.
+
+---
+
+## 📦 Dependencies Overview
+
+### Web & API
+- **spring-boot-starter-web**  
+  Used to build RESTful APIs and handle HTTP requests.
+
+### Persistence
+- **spring-boot-starter-data-jpa**  
+  Provides JPA and Hibernate integration for database access.
+- **MySQL Connector/J**  
+  Runtime dependency for MySQL database connectivity.
+
+### Validation
+- **jakarta.validation-api**  
+  Used for request and domain validation using annotations such as `@NotNull`, `@NotBlank`, and `@Size`.
+
+### Database Migration
+- **Flyway (core + mysql)**  
+  Manages database schema migrations and versioning in a controlled and repeatable way.
+
+### Developer Productivity
+- **Lombok**  
+  Reduces boilerplate code by generating getters, setters, constructors, and builders at compile time.
+
+### Testing
+- **spring-boot-starter-test**  
+  Includes JUnit 5, Mockito, and Spring testing utilities for unit and integration testing.
+
+---
+
+## 🧪 Test Coverage & Quality Control
+
+This project uses **JaCoCo** to measure and enforce unit test coverage.
+
+### JaCoCo Configuration Highlights
+
+- Code coverage is focused on:
+
+- The following layers are excluded from coverage metrics:
+- Controllers
+- Repositories
+- Entities
+- DTOs
+
+This approach ensures that **business logic is properly tested**, without penalizing boilerplate or framework-driven code.
+
+### Coverage Rules
+
+- **Minimum method coverage:** `80%`
+- The build **fails automatically** if coverage requirements are not met.
+
+## 📊 Test Coverage Report
+
+<img src="docs/images/jacoco-report.png" alt="JaCoCo Report" width="800"/>
+
+---
+
+## 🏗️ Build & Execution
+
+### Common Maven Commands
+
+```bash
+# Run tests with coverage
+mvn clean test
+
+# Run full verification (includes JaCoCo check)
+mvn clean verify
+
+# Run the application
+mvn spring-boot:run
