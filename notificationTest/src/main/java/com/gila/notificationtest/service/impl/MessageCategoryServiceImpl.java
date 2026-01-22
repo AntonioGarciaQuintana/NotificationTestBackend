@@ -1,6 +1,7 @@
 package com.gila.notificationtest.service.impl;
 
 import com.gila.notificationtest.domain.entity.MessageCategoryEntity;
+import com.gila.notificationtest.exception.NotFoundException;
 import com.gila.notificationtest.repository.MessageCategoryRepository;
 import com.gila.notificationtest.service.interfaces.MessageCategoryService;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class MessageCategoryServiceImpl implements MessageCategoryService {
     @Transactional(readOnly = true)
     public MessageCategoryEntity getCategoryEntity(String code) {
         return this.messageCategoryRepository.findByCode(code)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid message category"));
+                .orElseThrow(() ->
+                new NotFoundException("Category with code " + code + " not found.")
+        );
     }
 }

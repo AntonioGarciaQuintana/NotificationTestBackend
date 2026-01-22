@@ -1,14 +1,12 @@
 package com.gila.notificationtest.controller;
 
 import com.gila.notificationtest.domain.dto.NotificationRequest;
-import com.gila.notificationtest.domain.dto.NotificationResponse;
+import com.gila.notificationtest.domain.dto.ApiResponse;
 import com.gila.notificationtest.domain.dto.SentNotificationDTO;
-import com.gila.notificationtest.domain.entity.SentNotificationEntity;
 import com.gila.notificationtest.service.impl.NotificationService;
 import com.gila.notificationtest.service.interfaces.SentNotificationService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,13 +32,13 @@ public class NotificationController {
      * @return ResponseEntity with shipping information
      */
     @PostMapping("/send")
-    public ResponseEntity<NotificationResponse> send(@Valid @RequestBody NotificationRequest request){
+    public ResponseEntity<ApiResponse> send(@Valid @RequestBody NotificationRequest request){
         log.info("Receiving request to send notification to category '{}' with message: '{}'",
                 request.getCategory(), request.getMessage());
 
         int totalNotifications = notificationService.send(request);
 
-        NotificationResponse response = new NotificationResponse(
+        ApiResponse response = new ApiResponse(
                 request.getCategory(),
                 request.getMessage(),
                 totalNotifications,

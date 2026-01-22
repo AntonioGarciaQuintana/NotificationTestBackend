@@ -1,6 +1,7 @@
 package com.gila.notificationtest;
 
 import com.gila.notificationtest.domain.entity.MessageCategoryEntity;
+import com.gila.notificationtest.exception.NotFoundException;
 import com.gila.notificationtest.repository.MessageCategoryRepository;
 import com.gila.notificationtest.service.impl.MessageCategoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,11 +57,11 @@ public class MessageCategoryServiceImplTest {
     void getCategoryEntity_shouldThrowException_whenCategoryDoesNotExist() {
         when(repository.findByCode("INVALID")).thenReturn(Optional.empty());
 
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
+        NotFoundException exception = assertThrows(
+                NotFoundException.class,
                 () -> service.getCategoryEntity("INVALID")
         );
-        assertEquals("Invalid message category", exception.getMessage());
+        assertEquals("Category with code INVALID not found.", exception.getMessage());
         verify(repository, times(1)).findByCode("INVALID");
     }
 }

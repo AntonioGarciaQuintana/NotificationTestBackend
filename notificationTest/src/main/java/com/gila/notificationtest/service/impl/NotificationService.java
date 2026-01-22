@@ -6,6 +6,9 @@ import com.gila.notificationtest.domain.entity.NotificationTypeEntity;
 import com.gila.notificationtest.domain.entity.SentNotificationEntity;
 import com.gila.notificationtest.domain.entity.UserEntity;
 import com.gila.notificationtest.domain.enums.NotificationType;
+import com.gila.notificationtest.exception.BusinessException;
+import com.gila.notificationtest.exception.NotFoundException;
+import com.gila.notificationtest.exception.NotificationDeliveryException;
 import com.gila.notificationtest.repository.SentNotificationRepository;
 import com.gila.notificationtest.service.interfaces.*;
 import lombok.extern.slf4j.Slf4j;
@@ -52,9 +55,16 @@ public class NotificationService {
     @Transactional
     public int send(NotificationRequest notification) {
 
-        MessageCategoryEntity category  = this.messageCategoryService.getCategoryEntity(notification.getCategory().name());
+        MessageCategoryEntity category = messageCategoryService.getCategoryEntity(notification.getCategory().name());
+
         List<UserEntity> users = userService.getSubscribedUsers(notification.getCategory());
 
+        if (users.isEmpty()) {
+            throw new BusinessException(
+                    "NO_RECIPIENTS",
+                    "No users subscribed to the selected category"
+            );
+        }
         List<SentNotificationEntity> sentNotifications = new ArrayList<>();
 
         LocalDateTime now = LocalDateTime.now();
@@ -89,10 +99,12 @@ public class NotificationService {
         try {
             this.notificationChannelSenderService.send(channel, message);
             return true;
+        } catch (IllegalArgumentException e) {
+            log.error("Notification channel is not properly configured: {}", e.getMessage());
         } catch (Exception e) {
             log.error("Failed to send notification to user {} via {}: {}", userName, channel, e.getMessage(), e);
-            return false;
         }
+        return false;
     }
 
     /**
