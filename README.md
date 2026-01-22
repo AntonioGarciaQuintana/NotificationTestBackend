@@ -48,6 +48,24 @@ This project is built using **Spring Boot 3.3.5** and **Java 21**, following mod
   Includes JUnit 5, Mockito, and Spring testing utilities for unit and integration testing.
 
 ---
+## Error Handling
+
+This API uses a centralized **Global Exception Handling** strategy to provide consistent and meaningful error responses.
+
+Handled error types include:
+
+- **Validation Errors (400)**  
+  Triggered by invalid request payloads using Jakarta Bean Validation (`@NotNull`, `@NotBlank`, etc.).
+
+- **Business Errors (400 / 409)**  
+  Domain-specific rules enforced via custom `BusinessException` (e.g. no recipients, invalid channel).
+
+- **Technical Errors (500)**  
+  Unexpected infrastructure or service failures handled as internal server errors.
+
+All exceptions are managed through a `@RestControllerAdvice`, keeping controllers clean and ensuring a consistent API error contract.
+
+---
 
 ## 🧪 Test Coverage & Quality Control
 
