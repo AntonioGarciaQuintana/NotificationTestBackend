@@ -12,9 +12,9 @@ public class MockUsers {
                 UserEntity.builder()
                         .id(1L)
                         .name("Alice")
-                        .email("alice@example.com")
+                        .email("tonygames.play.zone@gmail.com")
                         .phoneNumber("1234567890")
-                        .subscribedCategories(List.of(MessageCategory.FINANCE))
+                        .subscribedCategories(List.of(MessageCategory.SPORTS))
                         .channels(List.of(NotificationType.EMAIL, NotificationType.SMS))
                         .build(),
 
@@ -28,7 +28,7 @@ public class MockUsers {
                         .build(),
 
                 UserEntity.builder()
-                        .id(2L)
+                        .id(3L)
                         .name("Bob")
                         .email("bob@example.com")
                         .phoneNumber("0987654321")

@@ -5,6 +5,14 @@ The system applies design patterns such as **Factory** and **Strategy**, and inc
 
 ---
 
+## Email Notifications
+
+The application sends email notifications using **Amazon Simple Notification Service (AWS SNS)**.
+
+AWS SNS is responsible for publishing messages to the configured topics and delivering them to email subscribers in a reliable and scalable way.
+
+---
+
 ## 🛠️ Technology Stack & Build Configuration
 
 This project is built using **Spring Boot 3.3.5** and **Java 21**, following modern backend development practices.
